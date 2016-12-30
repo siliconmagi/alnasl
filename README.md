@@ -9,7 +9,7 @@ yarn install
 ## run development with HMR
 npm run dev
 
-## run production with HMR
+## run production
 npm run build
 
 
