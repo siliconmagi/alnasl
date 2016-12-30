@@ -60,29 +60,40 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = {
-  hi: 'Modules online',
-  event: 'Event confirmed, watch online check',
-};
+var messages = __webpack_require__(1);
+var app = document.getElementById('app');
+app.innerHTML = '<p>' + messages.hi + " " + messages.event + '</p>';
+
+if (false) {
+  module.hot.accept();
+}
 
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+module.exports = {
+  hi: 'Modules online',
+  event: 'Event confirmed, watch online check, webconfig hot module online, env online',
+};
+
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-var messages = __webpack_require__(0);
-var app = document.getElementById('app');
-app.innerHTML = '<p>' + messages.hi + " " + messages.event + '</p>';
+module.exports = __webpack_require__(0);
 
 
 /***/ }

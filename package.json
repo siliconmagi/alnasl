@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "rimraf dist && webpack src/app.js dist/bundle.js --watch"
+    "build": "rimraf dist && NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development node dev-server.js"
   },
   "keywords": [],
   "author": "",
