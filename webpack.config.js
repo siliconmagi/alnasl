@@ -19,6 +19,13 @@ var plugins = PRODUCTION
 module.exports = {
   entry: entry,
   plugins: plugins,
+  module: {
+    loaders: [{
+      test: /\.js$/,
+        loaders: ['babel-loader'],
+        exclude: '/node_modules/'
+    }]
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/dist',

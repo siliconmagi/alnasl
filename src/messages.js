@@ -1,4 +1,4 @@
 module.exports = {
-  hi: 'Modules online',
-  event: 'Event confirmed, watch online check, webconfig hot module online, env online work',
+  hi: 'Modules on',
+  event: 'Event on, live on, babel on',
 };

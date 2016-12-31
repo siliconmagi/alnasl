@@ -12,5 +12,8 @@ npm run dev
 ## run production
 npm run build
 
+## open browser
+http://localhost:8080/
+
 
 

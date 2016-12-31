@@ -71,13 +71,15 @@
 /***/ function(module, exports, __webpack_require__) {
 
 var messages = __webpack_require__(1);
+
+var newMessage = () => `<h1>${ messages.hi } template ${ messages.event }</h1>`;
+
 var app = document.getElementById('app');
-app.innerHTML = '<p>' + messages.hi + " " + messages.event + '</p>';
+app.innerHTML = newMessage();
 
 if (false) {
   module.hot.accept();
 }
-
 
 /***/ },
 /* 1 */
@@ -85,9 +87,8 @@ if (false) {
 
 module.exports = {
   hi: 'Modules online',
-  event: 'Event confirmed, watch online check, webconfig hot module online, env online',
+  event: 'Event confirmed'
 };
-
 
 /***/ },
 /* 2 */
