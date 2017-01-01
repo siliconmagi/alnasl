@@ -1,9 +1,15 @@
-var messages = require('./messages.js');
+import Button from './button';
 
-var newMessage = () => (`<h1>${messages.hi}, template on, ${messages.event}</h1>`);
+const messages = require('./messages.js');
 
-var app = document.getElementById('app');
+// const newMessage = () => (`<h1>${messages.hi}, template on, ${messages.event}</h1>`);
+
+const newMessage = () => (Button.button);
+
+const app = document.getElementById('app');
 app.innerHTML = newMessage();
+
+Button.attachEl();
 
 if (module.hot) {
   module.hot.accept();
