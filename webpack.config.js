@@ -1,20 +1,27 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
-var DEVELOPMENT = process.env.NODE_ENV === 'development';
-var PRODUCTION = process.env.NODE_ENV === 'production';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
-var entry = PRODUCTION
-? ['./src/app.js']
-: [
-  './src/app.js',
-  'webpack/hot/dev-server',
-  'webpack-dev-server/client?http://localhost:8080',
-];
+const entry = PRODUCTION
+  ? ['./src/app.js']
+  : [
+    './src/app.js',
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:8080',
+  ];
 
-var plugins = PRODUCTION
-? []
-: [new webpack.HotModuleReplacementPlugin()];
+const plugins = PRODUCTION
+  ? [
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      mangle: true,
+      compress: {
+        warnings: true,
+      },
+    })]
+  : [new webpack.HotModuleReplacementPlugin()];
 
 module.exports = {
   devtool: 'source-map',
@@ -24,16 +31,20 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel-loader'],
-      exclude: '/node_modules/'
+      exclude: '/node_modules/',
     }, {
-      test: /\.(png|jpg|gif|svg)$/,
-      loaders: ['file-loader'],
-      exclude: '/node_modules/'
-    }]
+      test: /\.css$/,
+      loaders: ['style-loader', 'css-loader'],
+      exclude: '/node_modules/',
+    }, {
+      test: /\.(png|jpg|gif|svg|ico)$/,
+      loaders: ['url-loader?limit=10000&name=img/[hash:12].[ext]'],
+      exclude: '/node_modules/',
+    }],
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist',
+    publicPath: '/dist/',
     filename: 'bundle.js',
   },
 };
