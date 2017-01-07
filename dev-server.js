@@ -1,15 +1,24 @@
-var WebpackDevServer = require('webpack-dev-server');
-var webpack = require('webpack');
-var config = require('./webpack.config.js');
-var path = require('path');
+const WebpackDevServer = require('webpack-dev-server');
+const webpack = require('webpack');
+const opener = require('opener');
+const config = require('./webpack.config.js');
+const host = 'localhost';
+const port = 3000;
+const path = require('path');
 
-var compiler = webpack(config);
-var server = new WebpackDevServer(compiler, {
+new WebpackDevServer(webpack(config), {
   hot: true,
+  historyApiFallback: true,
   filename: config.output.filename,
   publicPath: config.output.publicPath,
   stats: {
     colors: true,
   },
-});
-server.listen(8080, 'localhost', function() {});
+})
+  .listen(port, host, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(`Listening at ${host}:${port}`);
+    opener(`http://${host}:${port}`);
+  });

@@ -7,9 +7,10 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 const entry = PRODUCTION
   ? ['./src/app.js']
   : [
+    'react-hot-loader/patch',
     './src/app.js',
     'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:3000',
   ];
 
 const plugins = PRODUCTION

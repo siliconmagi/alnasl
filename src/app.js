@@ -1,22 +1,57 @@
-// import proto from './image';
-// import favi from './image2';
-import { multiply } from './math';
+// app.js entry point for file
+import { AppContainer } from 'react-hot-loader'; // required
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Comp from './comp'; // App
 
-// const messages = require('./messages');
+const mountApp = document.getElementById('app');
 
-// const newMessage = () => (`
-    // <h1>
-    // ${messages.hi}, template on, ${messages.event}
-    // ${proto}
-    // ${favi}
-    // </h1>
-    // `);
-
-const newMessage = () => (multiply(3, 3));
-
-const app = document.getElementById('app');
-app.innerHTML = newMessage();
+ReactDOM.render(
+  <AppContainer>
+    <Comp />
+    </AppContainer>,
+  mountApp,
+);
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept('./comp', () => {
+    const NextApp = require('./comp').default;
+    ReactDOM.render(
+      <AppContainer>
+        <NextApp />
+        </AppContainer>,
+      mountApp,
+    );
+  });
 }
+// import { Component } from 'react';
+// import { observable } from 'mobx';
+// import { observer } from 'mobx-react';
+// import './global-styles';
+
+// class Counter extends React.Component {
+// count = 0;
+
+// render() {
+// return (
+// <div>
+// Counter: {this.count}<br />
+// <button onClick={this.handleDec}>-</button>
+// <button onClick={this.handleInc}>+</button>
+// </div>
+// )
+// }
+// handleDec = () => {
+
+// }
+// handleInc = () => {
+
+// }
+// }
+
+// ReactDom.render(
+// document.getElementById("app")
+// )
+// if (module.hot) {
+// module.hot.accept();
+// }
