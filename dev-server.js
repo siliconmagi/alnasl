@@ -8,6 +8,8 @@ const path = require('path');
 
 new WebpackDevServer(webpack(config), {
   hot: true,
+  compress: true,
+  inline: true,
   historyApiFallback: true,
   filename: config.output.filename,
   publicPath: config.output.publicPath,

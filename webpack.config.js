@@ -5,10 +5,10 @@ const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const entry = PRODUCTION
-  ? ['./src/app.js']
+  ? ['./src/index.js']
   : [
     'react-hot-loader/patch',
-    './src/app.js',
+    './src/index.js',
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:3000',
   ];
@@ -16,13 +16,21 @@ const entry = PRODUCTION
 const plugins = PRODUCTION
   ? [
     new webpack.optimize.UglifyJsPlugin({
-      comments: false,
-      mangle: true,
+      comments: true,
+      mangle: false,
       compress: {
         warnings: true,
       },
-    })]
-  : [new webpack.HotModuleReplacementPlugin()];
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
+  ]
+  : [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+  ];
 
 module.exports = {
   devtool: 'source-map',
@@ -30,7 +38,7 @@ module.exports = {
   plugins: plugins,
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.(js|jsx)$/,
       loaders: ['babel-loader'],
       exclude: '/node_modules/',
     }, {
