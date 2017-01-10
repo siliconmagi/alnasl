@@ -2,10 +2,8 @@
 <br />
 ## Webpack 2 Starter Silicon Magi
 es2015, hot module reload (HMR), sourcemaps, file-loader, dev/prod builds, chunks, tree-shaking
----
-<br />
+
 ### copy project to local
-<div align="center"><strong>Webpack 2 Starter Silicon Magi</strong></div><Paste>
 git clone https://github.com/siliconmagi/alnasl
 
 ### install dependencies
