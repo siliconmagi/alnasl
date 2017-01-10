@@ -2,12 +2,7 @@
   "presets": [
     ['es2015', { 'modules': false }],
     'stage-0',
-    'react',
-    'react-hmre'
   ],
   "plugins": [
-  'transform-decorators-legacy',
-  'transform-class-properties',
-  'react-hot-loader/babel'
   ]
 }

@@ -1,49 +1,48 @@
 const path = require('path');
 const webpack = require('webpack');
-
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const entry = PRODUCTION
-  ? ['./src/index.js']
+  ? ['./app/app.js']
   : [
-    'react-hot-loader/patch',
-    './src/index.js',
-    'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/dev-server',
+    './app/app.js'
   ];
 
 const plugins = PRODUCTION
   ? [
-    new webpack.optimize.UglifyJsPlugin({
-      comments: true,
-      mangle: false,
-      compress: {
-        warnings: true,
-      },
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new HTMLWebpackPlugin({
+      template: './app/indexTemplate.html' 
+  })
   ]
   : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
   ];
 
+plugins.push(
+  new webpack.DefinePlugin({
+    DEVELOPMENT: JSON.stringify(DEVELOPMENT),
+    PRODUCTION: JSON.stringify(PRODUCTION),
+  })
+)
+
 module.exports = {
   devtool: 'source-map',
   entry: entry,
-  plugins: plugins,
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    publicPath: PRODUCTION ? '/' : '/dist/',
+    filename: PRODUCTION ? 'bundle.[hash:12].min.js' : 'bundle.js'
+  },
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
       loaders: ['babel-loader'],
-      exclude: '/node_modules/',
-    }, {
-      test: /\.css$/,
-      loaders: ['style-loader', 'css-loader'],
       exclude: '/node_modules/',
     }, {
       test: /\.(png|jpg|gif|svg|ico)$/,
@@ -51,9 +50,8 @@ module.exports = {
       exclude: '/node_modules/',
     }],
   },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/',
-    filename: 'bundle.js',
-  },
-};
+  // resolve: {
+  // extensions: ['*', '.js', '.jsx']
+  // },
+  plugins: plugins,
+}
