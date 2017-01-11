@@ -14,7 +14,21 @@
 // DEV: ${DEVELOPMENT.toString()}<br>
 // PROD: ${PRODUCTION.toString()}<br>
 // `);
+import runtime from 'offline-plugin/runtime';
 
+runtime.install({
+  // When an update is ready, tell ServiceWorker to take control immediately:
+  onUpdateReady() {
+    console.log('update ready');
+    runtime.applyUpdate();
+  },
+
+  // Reload to get the new version:
+  onUpdated() {
+    console.log('updated');
+    location.reload();
+  }
+});
 
 const app = document.getElementById('app');
 // app.innerHTML = newMessage();
@@ -48,4 +62,3 @@ if (DEVELOPMENT) {
     module.hot.accept();
   }
 }
-
